@@ -52,6 +52,33 @@ class enrolment_manager_test extends TestCase {
     public function test_enrol_invalid_course_throws_exception(): void {
         $this->expectException(\InvalidArgumentException::class);
         $this->manager->enrol_user(1, 999);
+    }
+
+    //Test a user can be unenrolled.
+    public function test_unenrol_user_successfully(): void {
+        $this->manager->enrol_user(2, 200);
+        $this->manager->unenrol_user(2, 200);
+        $courses = $this->manager->get_user_courses(2);
+        $this->assertEmpty($courses);
+    }
+    
+    //Test unenrolling a user not enrolled throws exception.
+    public function test_unenrol_user_not_enrolled_throws_exception(): void {
+        $this->expectException(\LogicException::class);
+        $this->manager->unenrol_user(1, 200);
+    }
+    
+    //Test unenrolling invalid user ID throws exception.
+    public function test_unenrol_invalid_user_throws_exception(): void {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->manager->unenrol_user(999, 100);
+    }
+
+    //Test unenrolling invalid course ID throws exception.
+    public function test_unenrol_invalid_course_throws_exception(): void {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->manager->unenrol_user(1, 999);
+    }
 
     // Add more tests: duplicate enrol, invalid ID, unenrol, etc.
 }
