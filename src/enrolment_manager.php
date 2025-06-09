@@ -30,6 +30,16 @@ class enrolment_manager {
     @return void
      */
     public function enrol_user(int $userid, int $courseid): void {
+        // Check if the user exists
+        if(!isset($this->users[$userid])) {
+            throw new \InvalidArgumentException("User ID $userid does not exist.");
+        }
+        
+        // Check if the course exists
+        if(!isset($this->courses[$courseid])) {
+            throw new \InvalidArgumentException("Course ID $courseid does not exist.");
+        }
+
         // Add course to the user's enrolments
         $this->enrolments[$userid][] = $courseid;
     }
@@ -41,6 +51,16 @@ class enrolment_manager {
     @return void
      */
     public function unenrol_user(int $userid, int $courseid): void {
+        // Check if the user exists
+        if(!isset($this->users[$userid])) {
+            throw new \InvalidArgumentException("User ID $userid does not exist.");
+        }
+        
+        // Check if the course exists
+        if(!isset($this->courses[$courseid])) {
+            throw new \InvalidArgumentException("Course ID $courseid does not exist.");
+        }
+
         // Remove course from the user's enrolments
         $this->enrolments[$userid] = array_diff($this->enrolments[$userid],[$courseid]);
     }
@@ -51,6 +71,11 @@ class enrolment_manager {
     @return array
      */
     public function get_user_courses(int $userid): array {
+        // Check if the user exists
+        if(!isset($this->users[$userid])) {
+            throw new \InvalidArgumentException("User ID $userid does not exist.");
+        }
+
         // Checking for user's enrolments
         if(!isset($this->enrolments[$userid])) {
             return []; // User is not enrolled into anything
