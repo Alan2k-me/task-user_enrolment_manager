@@ -1,35 +1,43 @@
 # User Enrolment Manager – Take Home Task
 
-## 🧠 Task Overview
+A take-home assignment for managing user enrolments in a simplified Moodle-like PHP system.
 
-You’ve been provided with a simple PHP framework simulating Moodle-like users and courses. Your task is to implement an `enrolment_manager` class that supports enrolling and unenrolling users from courses and retrieving enrolment information.
+## 🚀 Features Implemented
 
-## 🎯 Objectives
-
-- Implement the following methods in `enrolment_manager.php`:
-  - `public function enrol_user(int $userid, int $courseid): void`
-  - `public function unenrol_user(int $userid, int $courseid): void`
-  - `public function get_user_courses(int $userid): array`
-
-- Handle and guard against:
+- Enrol users into courses
+- Unenrol users from courses
+- Retrieve all courses a user is enrolled in
+- Validation for:
   - Duplicate enrolments
-  - Unenrolling users not enrolled in a course
-  - Invalid user or course IDs
+  - Invalid user/course IDs
+  - Unenrolling users not enrolled
+- Comprehensive unit tests with PHPUnit
+- CLI interface for enrol/unenrol actions - data not stored
+- Basic logging for enrolment activity
 
-- Ensure your implementation:
-  - Uses the provided `user` and `course` classes
-  - Passes all PHPUnit tests
-  - Has unit tests to cover the above scenarios
-  - All commits are logical and include a sane message
-    - https://www.conventionalcommits.org/en/v1.0.0/
+## 📜 Commit Discipline
 
-- There is no need to include a datasource like a database in the application.
+All commits follow Conventional Commits, and the project was developed using clean Git practices with feature branching, isolated changes, and descriptive messages.
 
-## ✅ Requirements
+## ⚙️ Tech Stack
 
 - PHP 8.0+
 - PHPUnit (via Composer)
-- Your code **must be tested** with `enrolment_manager_test.php`
+
+## 📂 Folder Structure
+
+   ```bash
+    src/
+    ├── enrolment_manager.php
+    ├── user.php
+    └── course.php
+    tests/
+    └── enrolment_manager_test.php
+    cli.php
+    composer.json
+    phpunit.xml
+    README.md
+   ```
 
 ## 📦 Setup
 
@@ -40,24 +48,33 @@ You’ve been provided with a simple PHP framework simulating Moodle-like users 
    composer install
    ```
 
-2. **Run the tests**:
+2. **Make logs folder**:
+
+   ```bash
+   mkdir logs
+   ```
+
+3. **Run the tests**:
 
    ```bash
    ./vendor/bin/phpunit
    ```
 
-## 🚀 Submission
+## 🧰 Usage via CLI
 
-- Fork this repository
-- Complete the task
-- Push your changes to your fork
-- Submit your GitHub repo link back to us
+   ```bash
+   php cli.php enrol 1 200
+   php cli.php unenrol 1 200
+   php cli.php list 1
+   ```
 
-## 🧪 Bonus (Optional)
+## 🧠 Reflections
 
-- Create a CLI entry point (e.g., `cli.php`) that lets a user enrol/unenrol using command-line input
-- Add logging or exception handling for unexpected scenarios
+This was a great hands-on exercise to build and test functionality that mimics real-world application logic. I enjoyed working through validation flows, thinking through edge cases, and reinforcing best practices around testing and version control.
 
----
+## 🤝 Acknowledgement
 
-Good luck and have fun!
+Grateful for the opportunity to work on this challenge. It was a rewarding deep dive into writing reliable, readable, and testable PHP. I am excited to walk through the approach and decisions during the upcoming interview.
+
+Thanks,
+Alan2K
