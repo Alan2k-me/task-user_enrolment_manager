@@ -14,7 +14,7 @@ class course {
     Populate the object.
     @param int $id
     @param string $title
-     */
+    */
     public function __construct(int $id, string $title) {
         $this->id = $id;
         $this->title = $title;

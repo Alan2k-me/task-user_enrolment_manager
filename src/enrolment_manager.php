@@ -30,7 +30,8 @@ class enrolment_manager {
     @return void
      */
     public function enrol_user(int $userid, int $courseid): void {
-        // Implement this.
+        // Add course to the user's enrolments
+        $this->enrolments[$userid][] = $courseid;
     }
 
     /*
@@ -40,7 +41,8 @@ class enrolment_manager {
     @return void
      */
     public function unenrol_user(int $userid, int $courseid): void {
-        // Implement this.
+        // Remove course from the user's enrolments
+        $this->enrolments[$userid] = array_diff($this->enrolments[$userid],[$courseid]);
     }
 
     /*
@@ -49,8 +51,19 @@ class enrolment_manager {
     @return array
      */
     public function get_user_courses(int $userid): array {
-        // Implement this.
-        return [];
+        // Checking for user's enrolments
+        if(!isset($this->enrolments[$userid])) {
+            return []; // User is not enrolled into anything
+        }
+        
+        $enrolled_courses = [];
+        foreach($this->enrolments[$userid] as $courseid) {
+            if(isset($this->courses[$courseid])) {
+                $enrolled_courses[] = $this->courses[$courseid];
+            }
+        }
+        
+        return $enrolled_courses;
     }
 }
 ?>
