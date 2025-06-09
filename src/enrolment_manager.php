@@ -70,9 +70,19 @@ class enrolment_manager {
         if(!isset($this->courses[$courseid])) {
             throw new \InvalidArgumentException("Course ID $courseid does not exist.");
         }
-
+        
+        // Check if user not enrolled at all or not enrolled into specified course
+        if(!isset($this->enrolments[$userid]) || !in_array($courseid, $this->enrolments[$userid])) {
+            throw new \LogicException("User $userid is not already enrolled in the course $courseid.");
+        }
+        
         // Remove course from the user's enrolments
         $this->enrolments[$userid] = array_diff($this->enrolments[$userid],[$courseid]);
+        
+        // Remove user from the list if no enrolments left
+        if(empty($this->enrolments[$userid])) {
+            unset($this->enrolments[$userid]);
+        }
     }
 
     /*
