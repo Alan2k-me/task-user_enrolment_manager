@@ -40,6 +40,16 @@ class enrolment_manager {
             throw new \InvalidArgumentException("Course ID $courseid does not exist.");
         }
 
+        // Initialise enrolments for user if not already set
+        if(!isset($this->enrolments[$userid])) {
+            $this->enrolments[$userid] = [];
+        }
+        
+        // Check if already enrolled
+        if(in_array($courseid, $this->enrolments[$userid])) {
+            throw new \LogicException("User $userid is already enrolled in the course $courseid.");
+        }
+
         // Add course to the user's enrolments
         $this->enrolments[$userid][] = $courseid;
     }
