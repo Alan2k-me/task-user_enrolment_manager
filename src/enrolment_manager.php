@@ -19,8 +19,12 @@ class enrolment_manager {
      */
     public function __construct(array $users, array $courses) {
         // We populate this class with user and course data instead of relying on a database to simplify the application.
-        $this->users = $users;
-        $this->courses = $courses;
+        foreach($users as $user) {
+            $this->users[$user->id] = $user->name;
+        }
+        foreach($courses as $course) {
+            $this->courses[$course->id] = $course->title;
+        }
     }
 
     /*
