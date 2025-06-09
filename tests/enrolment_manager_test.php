@@ -35,6 +35,24 @@ class enrolment_manager_test extends TestCase {
         $this->assertCount(1, $courses);
     }
 
+    //Test duplicate enrolment throws error.
+    public function test_duplicate_enrolment_throws_exception(): void {
+        $this->manager->enrol_user(1, 100);
+        $this->expectException(\LogicException::class);
+        $this->manager->enrol_user(1,100);
+    }
+
+    //Test invalid user ID throws exception.
+    public function test_enrol_invalid_user_throws_exception(): void {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->manager->enrol_user(999, 100);
+    }
+    
+    //Test invalid course ID throws exception.
+    public function test_enrol_invalid_course_throws_exception(): void {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->manager->enrol_user(1, 999);
+
     // Add more tests: duplicate enrol, invalid ID, unenrol, etc.
 }
 ?>
